@@ -1,0 +1,49 @@
+<div *ngIf="pokemon" class="max-w-4xl mx-auto p-4">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden px-8 pt-8 pb-4 transition-shadow duration-500 hover:shadow-2xl">
+        <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-6">{{ pokemon.name }}</h2>
+        <div class="bg-gray-50 px-6 pt-6 rounded-lg shadow-inner">
+            <div class="flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0">
+                <div class="md:w-1/3 flex justify-center">
+                    <img [src]="pokemon.picture" alt="{{ pokemon.name }}" class="w-full h-auto">
+                </div>
+                <div class="md:w-2/3 md:pl-8">
+                    <table class="min-w-full text-left">
+                        <tbody class="divide-y divide-gray-700">
+                        <tr class="bg-gray-200">
+                            <td class="text-gray-700 font-semibold p-3">Nom</td>
+                            <td class="py-3 text-gray-900"><strong>{{ pokemon.name }}</strong></td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="text-gray-700 font-semibold p-3">Points de vie</td>
+                            <td class="py-3 text-gray-900"><strong>{{ pokemon.hp }}</strong></td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="text-gray-700 font-semibold p-3">Dégâts</td>
+                            <td class="py-3 text-gray-900"><strong>{{ pokemon.cp }}</strong></td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="text-gray-700 font-semibold p-3">Types</td>
+                            <td class="py-3">
+                                <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }} inline-block px-3 py-1 rounded-full text-sm text-white mr-2">{{ type }}</span>
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="text-gray-700 font-semibold p-3">Date de création : </td>
+                            <td class="py-3 text-gray-500"><em>{{ pokemon.created | date:'dd/MM/yyyy' }}</em></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr class="mt-6 border-orange-600 pb-1">
+                    <div class="flex space-x-4">
+                        <a (click)="goToPokemonList()" class="inline-block px-4 py-2 text-orange-600 hover:text-orange-700 rounded-md border border-transparent hover:border-orange-300">Retour</a>
+                        <a (click)="goToEditPokemon(pokemon)" class="inline-block px-4 py-2 text-orange-600 hover:text-orange-700 rounded-md border border-transparent hover:border-orange-300">Editer</a>
+                        <a (click)="deletePokemon(pokemon)" class="inline-block px-4 py-2 text-orange-600 hover:text-orange-700 rounded-md border border-transparent hover:border-orange-300">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h4 *ngIf='!pokemon'>
+    <app-loader></app-loader>
+</h4>

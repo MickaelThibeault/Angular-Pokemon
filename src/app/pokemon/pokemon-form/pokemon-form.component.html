@@ -1,0 +1,90 @@
+<form *ngIf="pokemon" (ngSubmit)="onSubmit()" #pokemonForm="ngForm" class="max-w-xl mx-auto p-4 bg-white shadow-md rounded-md">
+    <div class="space-y-4">
+        <!-- Pokemon name -->
+        <div>
+            <label for="name" class="block text-gray-700 font-semibold mb-1">Nom</label>
+            <input type="text" id="name"
+                   required
+                   pattern="^[a-zA-Z0-9àéèç]{1,25}$"
+                   [(ngModel)]="pokemon.name" name="name"
+                   #name="ngModel"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div *ngIf="!name.valid && !name.pristine" class="text-red-500 text-sm mt-1">
+                Le nom du pokémon est requis (1-25).
+            </div>
+        </div>
+
+        <!-- Pokemon picture -->
+        <div *ngIf="isAddForm">
+            <label for="picture" class="block text-gray-700 font-semibold mb-1">Image</label>
+            <input type="url" id="picture"
+                   required
+                   [(ngModel)]="pokemon.picture" name="picture"
+                   #picture="ngModel"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div *ngIf="!picture.valid && !picture.pristine" class="text-red-500 text-sm mt-1">
+                L'image du pokémon est requise.
+            </div>
+        </div>
+
+        <!-- Pokemon hp -->
+        <div>
+            <label for="hp" class="block text-gray-700 font-semibold mb-1">Point de vie</label>
+            <input type="number" id="hp"
+                   required
+                   pattern="^[0-9]{1,3}$"
+                   [(ngModel)]="pokemon.hp" name="hp"
+                   #hp="ngModel"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div *ngIf="!hp.valid && !hp.pristine" class="text-red-500 text-sm mt-1">
+                Les points de vie du pokémon sont compris entre 0 et 999.
+            </div>
+        </div>
+
+        <!-- Pokemon cp -->
+        <div>
+            <label for="cp" class="block text-gray-700 font-semibold mb-1">Dégâts</label>
+            <input type="number" id="cp"
+                   required
+                   pattern="^[0-9]{1,2}$"
+                   [(ngModel)]="pokemon.cp" name="cp"
+                   #cp="ngModel"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div *ngIf="!cp.valid && !cp.pristine" class="text-red-500 text-sm mt-1">
+                Les dégâts du pokémon sont compris entre 0 et 99.
+            </div>
+        </div>
+
+        <!-- Pokemon types -->
+        <div>
+            <label class="block text-gray-700 font-semibold mb-1">Types</label>
+            <div class="space-y-2">
+                <p *ngFor="let type of types" class="flex items-center">
+                    <input type="checkbox"
+                           id="{{ type }}"
+                           [value]="type"
+                           [checked]="hasType(type)"
+                           [disabled]="!isTypesValid(type)"
+                           (change)="selectType($event, type)"
+                           class="mr-2 leading-tight">
+                    <label for="{{ type }}" class="flex items-center cursor-pointer">
+                        <div class="{{ type | pokemonTypeColor }}">{{ type }}</div>
+
+                    </label>
+                </p>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="text-center">
+            <button type="submit" [disabled]="!pokemonForm.form.valid"
+                    class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 disabled:opacity-50">
+                Valider
+            </button>
+        </div>
+    </div>
+</form>
+
+<h3 *ngIf="!pokemon">
+    <app-loader></app-loader>
+</h3>

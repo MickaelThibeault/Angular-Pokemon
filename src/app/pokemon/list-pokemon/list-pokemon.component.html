@@ -1,0 +1,63 @@
+<div class="max-w-5xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
+<!--    <div class="flex justify-center mb-6">-->
+<!--        <input-->
+<!--                type="number"-->
+<!--                #input-->
+<!--                name=""-->
+<!--                id=""-->
+<!--                (keyup.enter)="selectPokemon(input.value)"-->
+<!--                class="border-2 border-gray-300 rounded-lg px-5 py-3 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"-->
+<!--                placeholder="Entrez l'ID du Pokémon"-->
+<!--        >-->
+<!--    </div>-->
+<!--    <p *ngIf="!input.value" class="text-center text-lg text-blue-700 mb-6">-->
+<!--        Aucun pokémon sélectionné-->
+<!--    </p>-->
+<!--    <div *ngIf="input.value">-->
+<!--        <p *ngIf="pokemonSelected" class="text-center text-lg text-green-700 mb-6">-->
+<!--            Vous avez sélectionné le Pokémon <span class="font-bold">{{ pokemonSelected.name}}</span>-->
+<!--        </p>-->
+<!--        <p *ngIf="!pokemonSelected" class="text-center text-lg text-red-700 mb-6">-->
+<!--            Vous avez demandé un Pokémon qui n'existe pas-->
+<!--        </p>-->
+<!--    </div>-->
+
+    <div class="mb-6">
+        <app-search-pokemon></app-search-pokemon>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div
+                *ngFor="let pokemon of pokemons"
+                class="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl"
+                pokemonBorderCard
+        >
+            <div (click)="goToPokemon(pokemon)" class="flex p-4">
+                <div class="w-1/2 h-40 flex justify-center items-center">
+                    <img
+                            [src]="pokemon.picture"
+                            alt="{{ pokemon.name }}"
+                            class="max-h-full object-contain"
+                    >
+                </div>
+                <div class="w-1/2 pl-4 flex flex-col justify-center">
+                    <h2 class="text-2xl font-semibold text-gray-800">
+                        {{ pokemon.name }}
+                    </h2>
+                    <p class="text-gray-500 text-sm mt-2">
+                        <small>{{ pokemon.created | date:"dd/MM/yyyy" }}</small>
+                    </p>
+                    <p>
+                        <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">{{ type }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a routerLink="/pokemons/add"
+   class="fixed bottom-6 right-6 bg-orange-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-orange-400 transition duration-200">
+    <span class="text-3xl font-bold transform -translate-y-1">+</span>
+</a>
+
