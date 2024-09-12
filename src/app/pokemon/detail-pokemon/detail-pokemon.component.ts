@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Pokemon} from "../model/pokemon";
-import {POKEMONS} from "../data/mock-pokemon-list";
 import {PokemonTypeColorPipe} from "../pipe/pokemon-type-color.pipe";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {PokemonService} from "../pokemon.service";

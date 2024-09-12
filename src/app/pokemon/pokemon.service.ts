@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Pokemon} from "./model/pokemon";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, filter, Observable, of, tap} from "rxjs";
+import {catchError, Observable, of, tap} from "rxjs";
 
 @Injectable()
 export class PokemonService {
